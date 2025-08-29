@@ -35,7 +35,7 @@ Some windows machines use `python` instead of `python3` but I can't test that as
 python -m venv venv
 ```
 
-### Python venv activation
+## Python venv activation
 After creating your venv, you'll want to make sure your machine knows you're running python stuff from it. 
 
 #### Windows venv activation
@@ -51,13 +51,13 @@ source venv/bin/activate
 ```
 If you'd like to learn more about the python venv, you can look [here](https://python.land/virtual-environments/virtualenv). 
 
-### Install dependencies 
+## Install dependencies 
 ```
 pip3 install -r requirements.txt
 ```
 Similar thing here as `python3`, if `pip3` doesn't work then try using `pip`. 
 
-### Downloading libraries
+## Downloading libraries
 If for any reason you need to download more libaries than are here, you'll usually follow a similar pattern as above and download them with 
 ```
 pip3 install libraryname
