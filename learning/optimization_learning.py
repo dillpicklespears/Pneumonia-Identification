@@ -1,7 +1,7 @@
 # following along: 
 # https://docs.pytorch.org/tutorials/beginner/basics/optimization_tutorial.html
 
-# Training a model is an iterative process; 
+# Training a model is an iterative process: 
 # in each iteration the model makes a guess about the output, 
 # calculates the error in its guess (loss), 
 # collects the derivatives of the error with respect to its parameters (as we saw in the previous section), 
