@@ -1,5 +1,14 @@
-# Pneumonia-Identification
 Software Engineering - Fall 2025 Project on Deep Vision Models for Pediatric Pneumonia Identification
+- [Pytorch](#pytorch)
+- [Setting up python](#setting-up-python)
+  - [Python venv](#python-venv)
+    - [Create a venv](#create-a-venv)
+  - [Python venv activation](#python-venv-activation)
+      - [Windows venv activation](#windows-venv-activation)
+      - [Mac or linux venv activation](#mac-or-linux-venv-activation)
+  - [Install dependencies](#install-dependencies)
+  - [Downloading libraries](#downloading-libraries)
+    - [Updating requirements.txt](#updating-requirementstxt)
 
 # Pytorch
 This project uses pytorch as the main library for training and building the AI. 
