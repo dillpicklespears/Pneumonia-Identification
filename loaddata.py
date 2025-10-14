@@ -16,6 +16,8 @@ class LoadData:
         self.val_loader = None
         self.test_loader = None
 
+        self.val_test_transforms = None
+
         self.__load__()
 
 
@@ -103,7 +105,7 @@ class LoadData:
         ])
 
         # Transformations for the validation and test sets (NO augmentation)
-        val_test_transforms = transforms.Compose([
+        self.val_test_transforms = transforms.Compose([
             transforms.Resize((256, 256)),
             transforms.Grayscale(num_output_channels=1),
             transforms.ToTensor()  # Converts to tensor AND scales to [0, 1]
@@ -123,13 +125,13 @@ class LoadData:
         val_dataset = XRayDataset(
             image_paths=val_paths,
             labels=val_labels,
-            transform=val_test_transforms  # Apply validation transforms (no augmentation)
+            transform=self.val_test_transforms  # Apply validation transforms (no augmentation)
         )
 
         test_dataset = XRayDataset(
             image_paths=all_test_paths,    # Using all_test_paths from verification step
             labels=all_test_labels,        # Using all_test_labels from verification step
-            transform=val_test_transforms  # Apply validation/test transforms
+            transform=self.val_test_transforms  # Apply validation/test transforms
         )
 
         # Print dataset sizes to confirm
