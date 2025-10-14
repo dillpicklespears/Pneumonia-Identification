@@ -35,13 +35,15 @@ This is what the python virtual environment is for. Separate project require sep
 ### Create a venv
 In your terminal, navigate to this project folder. If you're using VS Code, you can click Terminal > New Terminal, and a terminal will pull up, already in the correct directory. 
 ```
-python3 -m venv venv
+python3 -m venv venv --system-site-packages
 ```
 This will create a new folder called venv. The gitignore for this project already includes python so whenever you push your changes, this directory won't be included. We don't want the venv included in the github as everyone's will be different.
 
+`--system-site-packages` will ensure the venv will also use the libraries already installed on your machine which is necessary to get tkinter to work. If you created a vevnv without this previously, delete it and remake it with this argument. 
+
 Some windows machines use `python` instead of `python3` but I can't test that as I don't have a windows machine. If the above command doesn't work, try:
 ```
-python -m venv venv
+python -m venv venv --system-site-packages
 ```
 
 ## Python venv activation
