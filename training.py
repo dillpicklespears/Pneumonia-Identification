@@ -197,7 +197,11 @@ if __name__ == "__main__":
     print(f"Model '{type(model).__name__}' instantiated and moved to '{device}'.")
 
     # Define loss function
-    criterion = nn.CrossEntropyLoss()
+    weight = torch.tensor([1.94, 0.67]) # higher weight for normal class
+    # pos_weight = torch.tensor([0.35])
+    criterion = nn.CrossEntropyLoss(weight=weight)
+    criterion.to(device)
+    #criterion = nn.BCEWithLogitsLoss() # BCE seems to be better than CE for binary output pos_weight=pos_weight
 
     # Define optimizer
     optimizer = optim.Adam(model.parameters(), lr=0.0001)
@@ -209,7 +213,8 @@ if __name__ == "__main__":
     # TRAINING THE MODEL
     #
     # Train the model
-    num_epochs = 20
+    #num_epochs = 20
+    num_epochs = 30 # increase from underfitting 
 
     loaddata = LoadData()
 
@@ -241,6 +246,6 @@ if __name__ == "__main__":
 
 
     # SAVING THE MODEL
-    modelpath = 'model.pth'
+    modelpath = 'model_complex_with_weight.pth'
     torch.save(model, modelpath)
     print("Model Saved to " + modelpath)

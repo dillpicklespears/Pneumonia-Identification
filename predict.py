@@ -1,7 +1,7 @@
 from loaddata import *
 from model import * 
 
-MODELPATH = 'model.pth'
+MODELPATH = 'model_complex_with_weight.pth'
 
 # This is the class that connects everything together 
 # after instatiating the class, you can run predict_image with the image path

@@ -5,37 +5,56 @@ from PIL import Image, ImageTk
 
 class ProgramInterface:
 
-    def __init__(self):
+    def __init__(self, prediction_function):
         self.root = tk.Tk()
         self.root.geometry("600x400")
         self.root.title("DegenerativeAI Diagnosis")
         self.root.config(background='grey')
         self.image_label = tk.Label(self.root, text="No Image Selected", bg="black", fg="white", width=300, height=300)
+        self.result_label = tk.Label(self.root, text="Results will be displayed here", bg="black", fg="white", width=300, height=300)
         self.image_label.grid_propagate(False)
+        self.result_label.grid_propagate(False)
 
         self.current_image = None
         self.photo_image = None
+        self.prediction_function = prediction_function
+        self.filename = None
+        self.result = None
 
         self.root.grid_rowconfigure(0, weight=1)
         self.root.grid_rowconfigure(1, weight=0)
+        self.root.grid_rowconfigure(2, weight=1)
         self.root.grid_columnconfigure(0, weight=1)
         self.root.grid_columnconfigure(1, weight=1)
+        self.root.grid_columnconfigure(2, weight=1)
 
         button_explore = tk.Button(self.root, text='Upload Image', command=self.browse_files)
         button_exit = tk.Button(self.root, text='Exit', command=exit)
+        button_predict = tk.Button(self.root, text='Predict', command=self.prediction_call)
 
-        self.image_label.grid(column=0, row=0, columnspan=2, padx=10, pady=10, sticky="nsew")
-        button_explore.grid(column=0, row=2, padx=10, pady=20, sticky="sw")
-        button_exit.grid(column=1, row=2, padx=10, pady=20, sticky="se")
+        self.image_label.grid(column=0, row=0, columnspan=3, padx=10, pady=10, sticky="nsew")
+        self.result_label.grid(column=0, row=2, columnspan=3, padx=10, pady=10, sticky="nsew")
+        button_explore.grid(column=0, row=3, padx=10, pady=20, sticky="sw")
+        button_exit.grid(column=2, row=3, padx=10, pady=20, sticky="se")
+        button_predict.grid(column=1, row=3, padx=10, pady=20, sticky="s")
         
         self.root.mainloop()
 
+    def prediction_call(self):
+        if self.filename != None:
+            self.result = self.prediction_function(self.filename)
+            print(self.result)
+            self.result_label.configure(text="Result: " + str(self.result['class_name']) + ", Confidence: " + str(self.result['confidence']))
+        else:
+            print("Kill yourself") 
+
+
     def browse_files(self):
         starting_dir = os.path.expanduser("~")
-        filename = filedialog.askopenfilename(initialdir=starting_dir, title="Select a File", filetypes=(("Image files", "*.jpg *.jpeg *.png *.bmp"),))
+        self.filename = filedialog.askopenfilename(initialdir=starting_dir, title="Select a File", filetypes=(("Image files", "*.jpg *.jpeg *.png *.bmp"),))
 
-        if filename:
-            self.display_image(filename)
+        if self.filename:
+            self.display_image(self.filename)
             
     def display_image(self, image_path):
         try:
