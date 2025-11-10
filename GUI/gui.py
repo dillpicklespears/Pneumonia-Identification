@@ -7,11 +7,11 @@ class ProgramInterface:
 
     def __init__(self, prediction_function):
         self.root = tk.Tk()
-        self.root.geometry("600x400")
+        self.root.geometry("600x600")
         self.root.title("DegenerativeAI Diagnosis")
         self.root.config(background='grey')
-        self.image_label = tk.Label(self.root, text="No Image Selected", bg="black", fg="white", width=300, height=300)
-        self.result_label = tk.Label(self.root, text="Results will be displayed here", bg="black", fg="white", width=300, height=300)
+        self.image_label = tk.Label(self.root, text="No Image Selected", font=("Arial", 23), bg="black", fg="white")
+        self.result_label = tk.Label(self.root, text="Results will be displayed here", font=("Arial", 23), bg="black", fg="white")
         self.image_label.grid_propagate(False)
         self.result_label.grid_propagate(False)
 
@@ -21,7 +21,7 @@ class ProgramInterface:
         self.filename = None
         self.result = None
 
-        self.root.grid_rowconfigure(0, weight=1)
+        self.root.grid_rowconfigure(0, weight=3)
         self.root.grid_rowconfigure(1, weight=0)
         self.root.grid_rowconfigure(2, weight=1)
         self.root.grid_columnconfigure(0, weight=1)
@@ -44,9 +44,9 @@ class ProgramInterface:
         if self.filename != None:
             self.result = self.prediction_function(self.filename)
             print(self.result)
-            self.result_label.configure(text="Result: " + str(self.result['class_name']) + ", Confidence: " + str(self.result['confidence']))
+            self.result_label.configure(text="Result: " + str(self.result['class_name']) + ", Confidence: " + str(round(self.result['confidence'], 3)))
         else:
-            print("Kill yourself") 
+            print("No image file detected") 
 
 
     def browse_files(self):
@@ -80,6 +80,7 @@ class ProgramInterface:
             resized_image = self.current_image.resize((new_width, new_height), Image.Resampling.LANCZOS)
             self.photo_image = ImageTk.PhotoImage(resized_image)
             self.image_label.configure(image=self.photo_image, text="")
+            self.result_label.configure(text="Results will be displayed here.")
         except Exception as e:
             print(f"Error: {e}")
 
