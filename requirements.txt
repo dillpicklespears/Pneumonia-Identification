@@ -24,8 +24,8 @@ setuptools==78.1.0
 six==1.17.0
 sympy==1.14.0
 threadpoolctl==3.6.0
-torch==2.10.0.dev20251014
-torchvision==0.25.0.dev20251014
+torch==2.10.0
+torchvision==0.25.0
 typing_extensions==4.15.0
 tzdata==2025.2
 wheel==0.45.1

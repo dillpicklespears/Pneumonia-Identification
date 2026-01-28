@@ -22,15 +22,20 @@ MODELPATH = 'model_complex_with_weight.pth'
 
 class Predicter:
     def __init__(self):
-        self.model = torch.load(MODELPATH, weights_only=False)
+        # Select device safely (Windows, Mac, Linux)
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+        # Load model onto selected device
+        self.model = torch.load(
+            MODELPATH,
+            map_location=self.device,
+            weights_only=False
+        )
+        self.model.to(self.device)
+        self.model.eval()
+
         self.loaddata = LoadData()
 
-        # Check if CUDA (GPU support) is available, otherwise use CPU
-        #device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-        # MAC SPECIFIC
-        # MPS is mac specific so it'll train faster on macs
-        self.device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
 
     def predict_image(self, image_path):
         """Loads a single image, preprocesses it, and returns model prediction details."""

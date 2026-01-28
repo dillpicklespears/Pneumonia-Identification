@@ -231,3 +231,17 @@ Icon[]
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Virtual environment
+venv/
+
+# Model artifacts
+server/models/*.pth
+server/models/versions/
+
+# Runtime storage (uploaded images, metadata)
+server/storage/
+
+# Python cache
+__pycache__/
+*.pyc
